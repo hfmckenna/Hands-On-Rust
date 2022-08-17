@@ -1,3 +1,5 @@
+#![warn(clippy::pedantic)]
+
 mod map;
 mod map_builder;
 mod player;
@@ -12,6 +14,8 @@ mod prelude {
     pub use crate::player::*;
     pub use crate::map_builder::*;
 }
+
+use prelude::*;
 
 struct State {
     map: Map,
@@ -32,6 +36,7 @@ impl State {
 impl GameState for State {
     fn tick(&mut self, ctx: &mut BTerm) {
         ctx.cls();
+        self.player.update(ctx, &self.map);
         self.map.render(ctx);
         self.player.render(ctx);
     }
@@ -42,7 +47,6 @@ fn main() -> BError {
         .with_title("Dungeon Crawler")
         .with_fps_cap(30.0)
         .build()?;
+
     main_loop(context, State::new())
 }
-
-use prelude::*;
