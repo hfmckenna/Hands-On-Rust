@@ -13,5 +13,5 @@ pub fn spawn_monster(ecs: &mut World, rng: &mut RandomNumberGenerator, pos: Poin
             2 => to_cp437('o'),
             _ => to_cp437('g'),
         },
-    }));
+    }, MovingRandomly {}));
 }
